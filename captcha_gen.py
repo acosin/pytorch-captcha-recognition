@@ -9,7 +9,7 @@ import os
 def random_captcha():
     captcha_text = []
     for i in range(captcha_setting.MAX_CAPTCHA):
-        c = random.choice(captcha_setting.ALL_CHAR_SET)
+        c = random.choice(captcha_setting.NUMBER)
         captcha_text.append(c)
     return ''.join(captcha_text)
 
@@ -21,7 +21,7 @@ def gen_captcha_text_and_image():
     return captcha_text, captcha_image
 
 if __name__ == '__main__':
-    count = 300
+    count = 10000
     path = captcha_setting.TRAIN_DATASET_PATH    #通过改变此处目录，以生成 训练、测试和预测用的验证码集
     if not os.path.exists(path):
         os.makedirs(path)

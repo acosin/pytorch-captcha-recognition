@@ -14,9 +14,10 @@ def main():
     print("load cnn net.")
 
     predict_dataloader = my_dataset.get_predict_data_loader()
-
+    
     #vis = Visdom()
     for i, (images, labels) in enumerate(predict_dataloader):
+        print(images, labels)
         image = images
         vimage = Variable(image)
         predict_label = cnn(vimage)

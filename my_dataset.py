@@ -9,7 +9,11 @@ import captcha_setting
 class mydataset(Dataset):
 
     def __init__(self, folder, transform=None):
-        self.train_image_file_paths = [os.path.join(folder, image_file) for image_file in os.listdir(folder)]
+        self.train_image_file_paths = [image_file for image_file in os.listdir(folder)]
+        for item in self.train_image_file_paths:
+            if(item[0] == '.'):
+                self.train_image_file_paths.remove(item)
+        self.train_image_file_paths = [os.path.join(folder, image_file) for image_file in self.train_image_file_paths]
         self.transform = transform
 
     def __len__(self):
@@ -37,6 +41,7 @@ def get_train_data_loader():
 
 def get_test_data_loader():
     dataset = mydataset(captcha_setting.TEST_DATASET_PATH, transform=transform)
+    print(dataset)
     return DataLoader(dataset, batch_size=1, shuffle=True)
 
 def get_predict_data_loader():

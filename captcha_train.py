@@ -4,6 +4,7 @@ import torch.nn as nn
 from torch.autograd import Variable
 import my_dataset
 from captcha_cnn_model import CNN
+import captcha_test.main as test_accuracy
 
 # Hyper Parameters
 num_epochs = 30
@@ -35,6 +36,10 @@ def main():
             if (i+1) % 100 == 0:
                 torch.save(cnn.state_dict(), "./model.pkl")   #current is model.pkl
                 print("save model")
+                accuracy = test_accuracy()
+                if accuracy >= 0.01:
+                    return
+                    
         print("epoch:", epoch, "step:", i, "loss:", loss.item())
     torch.save(cnn.state_dict(), "./model.pkl")   #current is model.pkl
     print("save last model")
